@@ -1,5 +1,5 @@
-const CACHE='flik-sergios-ultra-v1';
-const CORE=['./','./index.html','./manifest.webmanifest','./assets/icon.svg','./data/poulia4-feed.json'];
+const CACHE='flik-sergios-ultra-v2';
+const CORE=['./','./index.html','./manifest.webmanifest','./assets/icon.svg','./assets/sergio.png','./assets/flick.png','./data/poulia4-feed.json'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
