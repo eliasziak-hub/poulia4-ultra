@@ -1,0 +1,12 @@
+{
+  "name": "Ο Φλικ & ο Σέργιος — Εξερευνητές του Βιότοπου",
+  "short_name": "Φλικ & Σέργιος",
+  "lang": "el",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#07110d",
+  "theme_color": "#14251e",
+  "description": "Εκπαιδευτικό παιχνίδι εξερεύνησης της ευρωπαϊκής ορνιθοπανίδας."
+}

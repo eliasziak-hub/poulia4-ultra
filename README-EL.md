@@ -1,0 +1,56 @@
+# Φλικ & Σέργιος — Ultra Edition
+
+## Περιεχόμενα
+- `index.html`: το παιχνίδι (βασισμένο στον αρχικό κώδικα που δόθηκε).
+- `data/poulia4-feed.json`: ευρετήριο 616 αναρτήσεων που εξήχθη από το Atom feed που ανέβηκε στη συνομιλία. Περιλαμβάνει τίτλους, labels, συνδέσμους, περιλήψεις, εικόνες και όσα επιστημονικά ονόματα εντοπίστηκαν στο κείμενο.
+- `manifest.webmanifest`, `sw.js`: δυνατότητες PWA και βασική offline λειτουργία.
+- `assets/icon.svg`: εικονίδιο εφαρμογής.
+- `_headers`, `_redirects`: βασικές ρυθμίσεις Cloudflare Pages.
+
+## Τοπική δοκιμή
+Μην ανοίξετε το `index.html` απευθείας με `file://`, επειδή ο browser δεν επιτρέπει την ανάγνωση του JSON feed. Εκκινήστε τοπικό server:
+```bash
+python -m http.server 8080
+```
+και ανοίξτε `http://localhost:8080`.
+
+## GitHub Pages
+1. Δημιουργήστε repository και ανεβάστε ΟΛΑ τα περιεχόμενα αυτού του φακέλου.
+2. Στο **Settings → Pages**, επιλέξτε **Deploy from a branch**, branch `main`, folder `/ (root)`.
+3. Περιμένετε το URL του GitHub Pages. Τα αρχεία χρησιμοποιούν σχετικά paths, ώστε να λειτουργούν και σε project repository.
+
+## Cloudflare Pages
+1. Συνδέστε το GitHub repository στο Cloudflare Pages.
+2. Framework preset: **None**.
+3. Build command: κενό. Build output directory: `/` (root).
+4. Κάντε Deploy. Δεν απαιτείται Worker ή μυστικό API key για τη στατική έκδοση.
+
+## Ενσωμάτωση σε Blogger
+Στην ανάρτηση Blogger, προσθέστε ένα HTML gadget ή αλλάξτε τον editor σε HTML και επικολλήστε:
+```html
+<div style="width:100%;max-width:1400px;margin:auto">
+  <iframe
+    src="https://YOUR-PAGES-URL/"
+    title="Ο Φλικ και ο Σέργιος — Εξερευνητές του Βιότοπου"
+    loading="lazy"
+    allow="fullscreen"
+    style="width:100%;height:min(88vh,900px);min-height:620px;border:0;border-radius:14px"
+    allowfullscreen>
+  </iframe>
+</div>
+```
+Αντικαταστήστε το `https://YOUR-PAGES-URL/` με το πραγματικό URL του GitHub Pages ή Cloudflare Pages.
+
+## Εγκατάσταση σε συσκευές
+- **Android / Desktop Chromium:** ανοίξτε το URL και επιλέξτε «Εγκατάσταση εφαρμογής» όταν εμφανιστεί.
+- **iPhone / iPad:** Safari → Κοινή χρήση → Προσθήκη στην οθόνη Αφετηρίας.
+- Απαιτείται HTTPS για εγκατάσταση PWA και Service Worker.
+
+## Blogger / Atom
+Το Atom export είναι snapshot των αναρτήσεων. Το παιχνίδι χρησιμοποιεί το τοπικό ευρετήριο ως γρήγορη, σταθερή πηγή και δοκιμάζει ζωντανή αναζήτηση Blogger JSONP όταν δεν υπάρχει αντιστοίχιση. Για πλήρη φρεσκάδα μετά από νέες αναρτήσεις, ανανεώστε το `data/poulia4-feed.json` από νέο Atom export και κάντε ξανά deploy.
+
+## Σημαντικές τεχνικές σημειώσεις
+- Το αρχικό παιχνίδι έχει 47 ενσωματωμένα είδη και τέσσερις ζώνες. Το Atom export περιέχει 616 εγγραφές· δεν σημαίνει ότι και οι 616 έχουν ήδη μετατραπεί σε πλήρως σχεδιασμένα, playable πτηνά. Το feed τροφοδοτεί την αναζήτηση/αντιστοίχιση άρθρων.
+- Τα επιστημονικά ονόματα εξάγονται αυτοματοποιημένα από το περιεχόμενο όπου εντοπίζονται. Χρειάζεται ανθρώπινος έλεγχος για να θεωρηθούν πλήρως αξιόπιστα.
+- Η υπάρχουσα μηχανή σχεδιάζει χαρακτήρες και πτηνά με Canvas 2D. Η παρούσα έκδοση διατηρεί την αρχική μηχανή· δεν ισχυρίζεται ότι έχει ήδη προστεθεί φωτορεαλιστικό 3D ή motion-captured animation.
+- Η ζωντανή σύνδεση Blogger εξαρτάται από τη διαθεσιμότητα του Blogger feed και από τους περιορισμούς του browser. Το τοπικό ευρετήριο λειτουργεί ως fallback.
